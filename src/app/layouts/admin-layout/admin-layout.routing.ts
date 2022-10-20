@@ -5,7 +5,6 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
-import { AuthGuard } from '../../shared/guard/auth.guard';
 
 
 export const AdminLayoutRoutes: Routes = [

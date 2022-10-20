@@ -11,6 +11,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     public authService: AuthService
   ) { }
 
+  public loginGoogle(){
+    this.authService.GoogleAuth().then(res=>{
+      location.reload()
+    })
+  }
+
   ngOnInit() {
   }
   ngOnDestroy() {
