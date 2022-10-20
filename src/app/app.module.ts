@@ -13,7 +13,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
-import { AuthService } from "./shared/services/auth.service";
+import { LandingComponent } from 'src/app/pages/landing/landing.component';
+
 
 @NgModule({
   imports: [
@@ -28,9 +29,10 @@ import { AuthService } from "./shared/services/auth.service";
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    LandingComponent
   ],
-  providers: [AuthService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
