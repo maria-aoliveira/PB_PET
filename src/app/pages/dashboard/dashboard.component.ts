@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Chart from 'chart.js';
 
 
@@ -23,7 +24,7 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  constructor() {}
+  constructor(public router: Router) {}
 
   ngOnInit() {
 
@@ -54,10 +55,37 @@ export class DashboardComponent implements OnInit {
 		});
   }
 
-
   public updateOptions() {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
+  }
+
+  public goToSintomas(){
+    this.router.navigate(['sintomas']);
+  }
+
+  public goToVacinas(){
+    this.router.navigate(['vacinas']);
+  }
+
+  public goToMedicamentos(){
+    this.router.navigate(['medicamentos']);
+  }
+
+  public goToControlePeso(){
+    this.router.navigate(['controle-peso']);
+  }
+
+  public goToAlimentacao(){
+    this.router.navigate(['alimentacao']);
+  }
+
+  public goToComportamento(){
+    this.router.navigate(['comportamento']);
+  }
+
+  public goToExames(){
+    this.router.navigate(['exames']);
   }
 
 }
