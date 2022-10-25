@@ -12,6 +12,8 @@ import { ExamesComponent } from 'src/app/pages/exames/exames.component';
 import { MedicamentosComponent } from 'src/app/pages/medicamentos/medicamentos.component';
 import { SintomasComponent } from 'src/app/pages/sintomas/sintomas.component';
 import { VacinasComponent } from 'src/app/pages/vacinas/vacinas.component';
+import { PetAddComponent } from 'src/app/pages/pet-add/pet-add.component';
+import { PetListComponent } from 'src/app/pages/pet-list/pet-list.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
@@ -26,4 +28,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'exames', component: ExamesComponent },
     { path: 'medicamentos', component: MedicamentosComponent },
     { path: 'vacinas', component: VacinasComponent },
+    { path: 'pet-add', component: PetAddComponent },
+    { path: 'pet-list', component: PetListComponent }
 ];

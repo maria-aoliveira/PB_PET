@@ -1,27 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-        <div class="header-body">
-            <!-- Card stats -->
-            <div class="row">
-                <div class="col-xl-3 col-lg-6">
-                    <div class="card card-stats mb-4 mb-xl-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <span class="h2 text-center font-weight-bold mb-0">Pet Name</span>
-                                    <p class="mt-3 mb-0 text-muted text-sm">
-                                        <span class="text-nowrap">Idade</span>
-                                        <br><span class="text-nowrap">Peso</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<app-pet-card-header></app-pet-card-header>
 <!-- Table -->
 <!-- Page content -->
 <div class="container-fluid mt--7">
@@ -32,28 +9,38 @@
                 <div class="card-header bg-transparent">
                     <h3 class="mb-0">Sintomas</h3>
                 </div>
-                <div class="card-body">
-                    <div class="row icon-examples">
-                        <div class="col-lg-3 col-md-6">
-                            <button type="button" placement="top-center" triggers="hover focus click"
-                                class="btn-icon-clipboard ">
-                                <div>
-                                    <i class="ni ni-active-40"></i>
-                                    <span>Adicionar Novo</span>
+                <div class="container">
+                    <div class="container text-center">
+                        <div class="row row-cols-3">
+                            <div class="col"></div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="data" class="form-label">Data</label>
+                                    <input type="email" class="form-control" id="data"
+                                        placeholder="dd/mm/yy">
                                 </div>
-                            </button>
+                                <div class="mb-3">
+                                    <label for="observacoes" class="form-label">Observações</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                <button type="button" placement="top-center" triggers="hover focus click"
+                                    class="btn-icon-clipboard" (click)="openModal()">
+                                    <div>
+                                        <i class="ni ni-active-40"></i>
+                                        <span>Adicionar Sintoma</span>
+                                    </div>
+                                </button>
+                            </div>
+
+                            <div class="col"></div>
                         </div>
                     </div>
                 </div>
-                <div class="card-header border-0">
-                    <h3 class="mb-0">Card tables</h3>
-                </div>
-                <div class="table-responsive">
+                <div class="table-responsive mt-5">
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Data</th>
-                                <th scope="col">Peso (kg)</th>
                                 <th scope="col">Observações</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
@@ -63,27 +50,24 @@
                         <tbody>
                             <tr>
                                 <th scope="row">
-                                  <div class="media align-items-center">
-                                    <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                                      <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                                    </a>
-                                    <div class="media-body">
-                                      <span class="mb-0 text-sm">21/10/2022 17:12:00</span>
+                                    <div class="media align-items-center">
+                                        <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+                                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <span class="mb-0 text-sm">21/10/2022 17:12:00</span>
+                                        </div>
                                     </div>
-                                  </div>
                                 </th>
                                 <td>
-                                  17
-                                </td>
-                                <td>
                                     <div class="media-body">
-                                        <span class="mb-0 text-sm">Peso ideal</span>
-                                      </div>
+                                        <span class="mb-0 text-sm">Tudo certo</span>
+                                    </div>
                                 </td>
                                 <td class="text-right">
                                     <button type="button" class="btn btn-warning">Excluir</button>
                                 </td>
-                              </tr>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

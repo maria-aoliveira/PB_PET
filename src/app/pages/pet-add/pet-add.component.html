@@ -1,0 +1,77 @@
+<div class="header bg-gradient-danger pb-4 pt-5 pt-md-5">
+  <div class="container-fluid">
+  </div>
+</div>
+<div class="container-fluid mt-7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Novo Pet</h3>
+        </div>
+        <div class="col">
+          <div class="form">
+            <div *ngIf="!submitted">
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" required [(ngModel)]="pet.nome" name="nome" />
+              </div>
+              <div class="mb-3">
+                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                <input type="text" class="form-control" id="data_nascimento" required [(ngModel)]="pet.data_nascimento"
+                  name="data_nascimento" />
+                <div class="form-text">Ou data de adoção</div>
+
+              </div>
+              <div class="mb-3">
+                <label for="tipo_pet" class="form-label">Tipo de pet</label>
+                <!-- <input type="text" class="form-control" id="tipo_pet" required [(ngModel)]="pet.tipo_pet"
+                  name="tipo_pet" /> -->
+                <select class="form-select" id="tipo_pet" required [(ngModel)]="pet.tipo_pet" name="tipo_pet">
+                  <option selected>Selecione uma opção</option>
+                  <option value="1">Cachorro</option>
+                  <option value="2">Gato</option>
+                  <option value="3">Pássaro</option>
+                  <option value="4">Roedores</option>
+                  <option value="5">Répteis</option>
+                  <option value="6">Peixes</option>
+                  <option value="7">Cavalos</option>
+                  <option value="8">Outro</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="raca" class="form-label">Raça</label>
+                <input type="text" class="form-control" id="raca" required [(ngModel)]="pet.raca" name="raca" />
+              </div>
+              <!-- <div class="mb-3">
+                <label for="genero" class="form-label">Gênero</label>
+                <input type="text" class="form-control" id="genero" required [(ngModel)]="pet.genero" name="genero" />
+              </div> -->
+              <div class="mb-3">
+                <label for="tipo_pet" class="form-label">Gênero</label>
+                <!-- <input type="text" class="form-control" id="tipo_pet" required [(ngModel)]="pet.tipo_pet"
+                  name="tipo_pet" /> -->
+                <select class="form-select" id="genero" required [(ngModel)]="pet.genero" name="genero">
+                  <option selected>Selecione uma opção</option>
+                  <option value="1">Macho</option>
+                  <option value="2">Fêmea</option>
+                  <option value="3">Outro</option>
+                </select>
+              </div>
+              <div class="col-lg-11 text-center">
+                <div class="col">
+                  <button (click)="savePet()" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+              <div *ngIf="submitted">
+                <h4>You submitted successfully!</h4>
+                <button class="btn btn-success" (click)="newPet()">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,49 @@
+<div class="header bg-gradient-danger pb-4 pt-5 pt-md-5">
+  <div class="container-fluid">
+  </div>
+</div>
+<div class="class=container-fluid m-7">
+  <div class="row">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 19rem;">
+          <div class="card-image" style="height: 13rem;">
+            <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__340.jpg"
+              class="card-img-top" alt="..." style="max-width:100%; max-height:100%;">
+          </div>
+          <div class="card-body">
+            <div class="row row-cols-3">
+              <div class="col">
+                <p class="card-text">Pet</p>
+              </div>
+              <div class="col"></div>
+              <div class="col">
+                <div ngbDropdown placement="top-right">
+                  <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" href="javascript:void(0)">Deletar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 19rem;">
+          <div class="card-image" style="height: 13rem;">
+            <img src="http://iconbug.com/data/5b/256/ad26794fe1fb7c5c05caf7abf3c6eb72.png" class="card-img-top"
+              alt="..." style="max-width:80%; max-height:80%;">
+          </div>
+          <div class="card-body">
+            <div class="row row-cols-3">
+              <p class="card-text" (click)="goToAddPet()">Novo Pet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-sintomas',
@@ -10,6 +11,10 @@ export class SintomasComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public openModal(){
+    console.log("opa")    
   }
 
 }

@@ -21,6 +21,9 @@ import { SintomasComponent } from 'src/app/pages/sintomas/sintomas.component';
 import { VacinasComponent } from 'src/app/pages/vacinas/vacinas.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PetAddComponent } from 'src/app/pages/pet-add/pet-add.component';
+import { PetListComponent } from 'src/app/pages/pet-list/pet-list.component';
+
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -45,7 +48,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ExamesComponent,
     MedicamentosComponent,
     SintomasComponent,
-    VacinasComponent
+    VacinasComponent,
+    PetAddComponent,
+    PetListComponent
   ]
 })
 

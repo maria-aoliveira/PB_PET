@@ -4,6 +4,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { PetCardHeaderComponent } from './pet-card-header/pet-card-header.component';
+import { ModalComponent } from './modal/modal.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,13 +18,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    PetCardHeaderComponent
+    PetCardHeaderComponent,
+    ModalComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    PetCardHeaderComponent
+    PetCardHeaderComponent,
+    ModalComponent
   ]
 })
 export class ComponentsModule { }
