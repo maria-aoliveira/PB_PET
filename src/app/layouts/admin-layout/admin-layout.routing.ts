@@ -29,5 +29,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'medicamentos', component: MedicamentosComponent },
     { path: 'vacinas', component: VacinasComponent },
     { path: 'pet-add', component: PetAddComponent },
-    { path: 'pet-list', component: PetListComponent }
+    { path: 'pet-list', component: PetListComponent },
+    { path: 'pet-add/:id', component: PetAddComponent }
 ];

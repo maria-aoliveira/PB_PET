@@ -3,7 +3,6 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-navbar',
@@ -26,12 +25,9 @@ export class NavbarComponent implements OnInit {
     var titlee = this.location.prepareExternalUrl(this.location.path());
     if(titlee.charAt(0) === '#'){
         titlee = titlee.slice( 2 );
-        console.log(titlee);
     }
     
     for(var item = 0; item < this.listTitles.length; item++){
-      console.log(this.listTitles[item].path)
-      console.log(titlee)
         if(this.listTitles[item].path === titlee){
             return this.listTitles[item].title;
         }
