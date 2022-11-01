@@ -65,6 +65,7 @@ export class PetListComponent implements OnInit {
 
   setActivePet(pet: Pet): void {
     this.currentPet = pet;
+    localStorage.setItem("currentPet", JSON.stringify(pet))
   }
 
   public goToAddPet(){
@@ -74,5 +75,10 @@ export class PetListComponent implements OnInit {
 
   public goToPetDashboard(currentPetId: string){
     this.router.navigate([`dashboard/${currentPetId}`]);
+  }
+
+  public async handleActivePet(pet: Pet) {
+    this.setActivePet(pet);
+    await this.router.navigate(["/dashboard"]);
   }
 }

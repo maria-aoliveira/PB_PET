@@ -21,4 +21,9 @@ export class Pet {
     public alimentacao?: Alimentacao[];
     public medicamentos?: Medicamento[];
     public vacinas?: Vacina[];
+
+    public idade?(): number {
+        console.log(new Date(new Date().getDate() - this.data_nascimento.getDate()).getFullYear())
+        return new Date(new Date().getDate() - this.data_nascimento.getDate()).getFullYear();
+    }
 }

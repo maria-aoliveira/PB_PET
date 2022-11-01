@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Chart from 'chart.js';
+import { Pet } from 'src/app/models/pet.model';
 
 
 // core components
@@ -23,10 +24,12 @@ export class DashboardComponent implements OnInit {
   public salesChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
+  public pet: Pet = null;
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.getCurrentPet();
 
     // this.datasets = [
     //   [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -59,6 +62,15 @@ export class DashboardComponent implements OnInit {
   //   this.salesChart.data.datasets[0].data = this.data;
   //   this.salesChart.update();
   // }
+
+  private getCurrentPet() {
+    const currentPet = localStorage.getItem("currentPet");
+    if (currentPet) this.setPetDashboard(JSON.parse(currentPet) as Pet)
+  }
+
+  private setPetDashboard(pet: Pet): void {
+    this.pet = pet;
+  }
 
   public goToSintomas(){
     this.router.navigate(['sintomas']);
