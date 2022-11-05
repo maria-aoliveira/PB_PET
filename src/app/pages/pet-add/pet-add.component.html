@@ -67,8 +67,9 @@
               </div>
             </div>            
             <div *ngIf="submitted">
-              <h4>Pet adicionado com sucesso</h4>
-              <button class="btn btn-success" (click)="newPet()">Adicionar outro pet</button>
+              <h4 *ngIf="!isUpdated">Pet adicionado com sucesso</h4>
+              <h4 *ngIf="isUpdated">Pet alterado com sucesso</h4>
+              <button class="btn btn-success" routerLink="/pet-list">Voltar para lista</button>
             </div>
           </div>
         </div>
