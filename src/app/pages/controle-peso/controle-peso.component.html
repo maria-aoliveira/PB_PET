@@ -7,7 +7,7 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h3 class="mb-0">Sintomas</h3>
+                    <h3 class="mb-0">Peso</h3>
                 </div>
                 <div class="container">
                     <div class="container text-center">
@@ -17,22 +17,22 @@
                                 <div class="mb-3">
                                     <label for="data" class="form-label">Data</label>
                                     <input type="email" class="form-control" id="data"
-                                        placeholder="dd/mm/yy">
+                                        placeholder="dd/mm/yy" [(ngModel)]="peso.data" name="data">
                                 </div>
                                 <div class="mb-3">
                                     <label for="peso" class="form-label">Peso</label>
                                     <input type="email" class="form-control" id="peso"
-                                        placeholder="Kg">
+                                        placeholder="Kg" [(ngModel)]="peso.peso" name="peso">
                                 </div>
                                 <div class="mb-3">
                                     <label for="observacoes" class="form-label">Observações</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="peso.observacoes" name="observacoes"></textarea>
                                 </div>
                                 <button type="button" placement="top-center" triggers="hover focus click"
                                     class="btn-icon-clipboard">
                                     <div>
                                         <i class="ni ni-active-40"></i>
-                                        <span>Adicionar Peso</span>
+                                        <span (click)="savePeso()">Adicionar Peso</span>
                                     </div>
                                 </button>
                             </div>
@@ -57,7 +57,7 @@
                                 <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngFor="let peso of pesos">
                             <tr>
                                 <th scope="row">
                                     <div class="media align-items-center">
@@ -65,20 +65,23 @@
                                             <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                                         </a>
                                         <div class="media-body">
-                                            <span class="mb-0 text-sm">21/10/2022 17:12:00</span>
+                                            <span class="mb-0 text-sm">{{ peso.data.toDate() | date:'dd/MM/yyyy' }}</span>
                                         </div>
                                     </div>
                                 </th>
                                 <td>
-                                    17
+                                    {{ peso.peso }}
                                 </td>
                                 <td>
                                     <div class="media-body">
-                                        <span class="mb-0 text-sm">Peso ideal</span>
+                                        <span class="mb-0 text-sm">{{ peso.observacoes }}</span>
                                     </div>
                                 </td>
+                                <td class="text-left">
+                                    <button type="button" class="btn btn-primary" (click)="editPeso(peso.id, peso)">Editar</button>
+                                </td>
                                 <td class="text-right">
-                                    <button type="button" class="btn btn-warning">Excluir</button>
+                                    <button type="button" class="btn btn-warning" (click)="deletePeso(peso.id)">Excluir</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -93,14 +96,6 @@
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="javascript:void(0)">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0)">2 <span
-                                        class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
                             <li class="page-item">
                                 <a class="page-link" href="javascript:void(0)">
                                     <i class="fas fa-angle-right"></i>
@@ -113,4 +108,5 @@
             </div>
         </div>
     </div>
+    <!-- <app-modal *ngIf="modalVisible"></app-modal> -->
 </div>

@@ -1,0 +1,67 @@
+import { Injectable } from '@angular/core';
+import { Pet } from 'src/app/models/pet.model';
+import { Peso } from 'src/app/models/peso.model'; 
+import * as moment from "moment";
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+@Injectable({
+    providedIn: 'root',
+})
+
+export class PesoService {
+    storagedPet = localStorage.getItem('currentPet');
+    parsedPet = JSON.parse(this.storagedPet);   
+
+    constructor(private db: AngularFirestore, public afs: AngularFirestore) {
+    }
+
+    create(pet: any) {
+            
+
+        var id = this.db.createId();
+
+        const petRef: AngularFirestoreDocument<any> = this.afs.doc(`/pets/${this.parsedPet.id}/pesos/${id}`)
+
+        const petData: Peso = {
+            id: id,
+            pet_id: this.parsedPet.id,
+            data: moment(pet.data, 'DD/MM/YYYY').toDate(),
+            peso: pet.peso,
+            observacoes: pet.observacoes
+        }
+                
+        return petRef.set(petData, {
+            merge: true,
+          });
+    }
+
+    // getPesosFromPet(): AngularFirestoreCollection<Peso> {       
+    //     return this.db.collection(`/pets/LKl9RCfXub2M2mllSafT/pesos`)
+    //   }
+
+    getPesosFromPet(petId: string): AngularFirestoreCollection<Peso> {       
+        return this.db.collection(`/pets/${petId}/pesos`, ref => ref.orderBy('data', 'desc').limit(5))
+    }
+
+    // getPetById(id: string): AngularFirestoreCollection<Pet> {
+    //     return this.db.collection('/pets', ref => ref.where('id', '==', id))
+    // }
+
+    update(id: string, data: any): Promise<void> {
+        return this.db.collection(`/pets/${this.parsedPet.id}/pesos`).doc(id).update(data);
+
+        // return this.petsRef.doc(id).delete();
+    }
+    
+
+    // update(id: string, data: any): Promise<void> {
+    //     return this.petsRef.doc(id).update(data);
+    // }
+
+    delete(id: string): Promise<void> {
+        return this.db.collection(`/pets/${this.parsedPet.id}/pesos`).doc(id).delete();
+
+        // return this.petsRef.doc(id).delete();
+    }
+
+
+}

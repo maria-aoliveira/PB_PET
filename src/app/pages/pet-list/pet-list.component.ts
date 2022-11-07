@@ -51,7 +51,7 @@ export class PetListComponent implements OnInit {
     });
   }
 
-  deletePet(id: string): void{
+  deletePet(): void{
     this.petService.delete(this.currentPet.id)
       .then(() => {
         this.message = 'The tutorial was deleted successfully!';
@@ -79,6 +79,6 @@ export class PetListComponent implements OnInit {
 
   public async handleActivePet(pet: Pet) {
     this.setActivePet(pet);
-    await this.router.navigate(["/dashboard"]);
+    await this.router.navigate([`dashboard/${pet.id}`]);
   }
 }

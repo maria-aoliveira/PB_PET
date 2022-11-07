@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import Chart from 'chart.js';
 import { Pet } from 'src/app/models/pet.model';
-
+import { map } from 'rxjs/operators';
 
 // core components
 // import {
@@ -26,10 +26,19 @@ export class DashboardComponent implements OnInit {
   public clicked1: boolean = false;
   public pet: Pet = null;
 
-  constructor(public router: Router, private route: ActivatedRoute) {}
+  constructor(public router: Router, public route: ActivatedRoute) {}
 
   ngOnInit() {
     this.getCurrentPet();
+    this.route.params.subscribe( params => {
+      if(params && params.id){
+        this.getCurrentPet()
+        // var currentPet = localStorage.getItem("currentPet");
+        // var parsedPet = JSON.parse(currentPet);
+        // params.id = parsedPet.id;
+      } 
+      
+    });    
 
     // this.datasets = [
     //   [0, 20, 10, 30, 15, 40, 20, 60, 60],

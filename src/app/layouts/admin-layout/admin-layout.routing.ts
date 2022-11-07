@@ -16,7 +16,7 @@ import { PetAddComponent } from 'src/app/pages/pet-add/pet-add.component';
 import { PetListComponent } from 'src/app/pages/pet-list/pet-list.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard', component: DashboardComponent },
+    { path: 'dashboard/:id', component: DashboardComponent },
     { path: 'user-profile', component: UserProfileComponent },
     { path: 'tables', component: TablesComponent },
     { path: 'icons', component: IconsComponent },

@@ -1,5 +1,6 @@
 export class Peso {
-    public id_peso: string;
+    public id: string;
+    public pet_id: string;
     public data: Date;
     public peso: number;
     public observacoes: string;
