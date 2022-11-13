@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Peso } from 'src/app/models/peso.model';
 import { PesoService } from 'src/app/shared/services/peso.service';
 import { DatePipe } from "@angular/common";
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-controle-peso',
@@ -13,31 +15,50 @@ export class ControlePesoComponent implements OnInit {
 
   peso: Peso = new Peso();
   pesos?: Peso[];
+  currentPeso?: Peso;
   storagedPet = localStorage.getItem('currentPet');
-  parsedPet = JSON.parse(this.storagedPet);  
-  modalVisible = false;
+  parsedPet = JSON.parse(this.storagedPet);
   isUpdated = false;
+  id: string;
+  // isAddMode: boolean;
+  // form: FormGroup;
 
 
-  constructor(private pesoService: PesoService) { }
+  constructor(private pesoService: PesoService, public router: ActivatedRoute, public route: Router) { }
 
   ngOnInit(): void {
     this.listPesos()
+    this.router.params.subscribe(params => {
+      if (params && params.id) {
+        this.getPeso(params.id);
+        // this.getPeso();
+        // console.log(this.getPeso())
+        this.isUpdated = true;
+      }
+    });
   }
 
-  savePeso(): void{
-    if(!this.isUpdated){
+  savePeso(): void {
+    if (!this.isUpdated) {
+      console.log(this.peso)
       this.pesoService.create(this.peso).then(() => {
         console.log("Peso criado com sucesso")
         this.peso.data = null,
-        this.peso.peso = null,
-        this.peso.observacoes = ''
+          this.peso.peso = null,
+          this.peso.observacoes = ''
       })
+    } else {
+      // console.log(this.peso.id)
+      // console.log(this.peso)
+      // console.log(this.currentPeso.peso)
+      this.pesoService.update(this.peso.id, this.peso).then(() =>
+        this.route.navigate(['controle-peso'])
+      )
     }
   }
 
-  listPesos(): void{  
-    this.pesoService.getPesosFromPet(this.parsedPet.id).snapshotChanges().pipe(
+  listPesos(): void {
+    this.pesoService.getPesosFromPet().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ id: c.payload.doc.id, ...c.payload.doc.data() })
@@ -45,27 +66,44 @@ export class ControlePesoComponent implements OnInit {
       )
     ).subscribe(data => {
       this.pesos = data;
-      console.log(this.pesos)
+      // console.log(this.pesos)
     });
   }
 
-  mostrarModal(){
-    this.modalVisible = true;
-  }
-
-  deletePeso(id: string){
+  deletePeso(id: string) {
     this.pesoService.delete(id)
   }
 
-  editPeso(id: string, peso: Peso){
-    this.pesoService.update(id, peso)
+  handleActivePet(peso: Peso) {
+    this.currentPeso = peso;
+    console.log("peso" + this.currentPeso)
+    localStorage.setItem("currentPeso", JSON.stringify(this.currentPeso))
+    this.route.navigate([`edit-peso/${this.currentPeso.id}`]);
   }
 
-//   deletePet(id: string): void{
-//     this.petService.delete(this.currentPet.id)
-//       .then(() => {
-//         this.message = 'The tutorial was deleted successfully!';
-//       })
-//       .catch(err => console.log(err));    
-// }
+  updatedate(event) {
+    this.peso.data = new Date(event);
+}
+
+  // getPeso() {
+  //   // console.log(localStorage.getItem("currentPeso"))
+  //   return localStorage.getItem("currentPeso");
+  // }
+
+  async getPeso(id: string) {
+    console.log(id)
+    return this.pesoService.getPesoById(id).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
+        )
+      )
+    ).subscribe(data => {
+      if (data.length > 0) {
+        this.peso = data.pop();
+
+        console.log(this.peso)
+      }
+    });
+  }
 }

@@ -34,6 +34,7 @@ export class PetAddComponent implements OnInit {
       this.submitted = true;
     });
     }else{
+      console.log(this.pet)
       this.petService.update(this.pet.id, this.pet).then(()=> this.submitted = true)
     }    
   }
@@ -51,9 +52,10 @@ export class PetAddComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      console.log(data)
+      // console.log(data)
       if(data.length > 0){
         this.pet = data.pop();
+        console.log(this.pet)
       }
     });    
   }

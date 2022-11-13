@@ -14,29 +14,42 @@
                         <div class="row row-cols-3">
                             <div class="col"></div>
                             <div class="col">
-                                <div class="mb-3">
-                                    <label for="data" class="form-label">Data</label>
-                                    <input type="email" class="form-control" id="data"
-                                        placeholder="dd/mm/yy" [(ngModel)]="peso.data" name="data">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="peso" class="form-label">Peso</label>
-                                    <input type="email" class="form-control" id="peso"
-                                        placeholder="Kg" [(ngModel)]="peso.peso" name="peso">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="observacoes" class="form-label">Observações</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="peso.observacoes" name="observacoes"></textarea>
-                                </div>
-                                <button type="button" placement="top-center" triggers="hover focus click"
-                                    class="btn-icon-clipboard">
-                                    <div>
-                                        <i class="ni ni-active-40"></i>
-                                        <span (click)="savePeso()">Adicionar Peso</span>
-                                    </div>
-                                </button>
-                            </div>
+                                <div>
+                                    <div class="mb-3">
+                                        <label for="data" class="form-label">Data</label>
+                                         <!-- <input class="form-control" name="data" 
+                                        placeholder="dd/mm/yy"
+                                        (ngModelChange)="updatedate($event)" 
+                                        [ngModel]="peso.data.toDate() | date:'dd/MM/yyyy'" #data="ngModel" type="date"/> -->
+                                        
+                                        <!-- <input class="form-control" name="data" 
+                                        placeholder="dd/mm/yy"
+                                        (ngModelChange)="peso.data=$event" 
+                                        [ngModel]="peso.data.toDate() | date:'dd/MM/yyyy'" #data="ngModel" type="date"/>  -->
 
+                                        <input class="form-control" id="data" placeholder="dd/mm/yy"
+                                            [(ngModel)]="peso.data" name="data">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="peso" class="form-label">Peso</label>
+                                        <input type="text" class="form-control" id="peso" placeholder="Kg"
+                                            [(ngModel)]="peso.peso" name="peso">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="observacoes" class="form-label">Observações</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                            [(ngModel)]="peso.observacoes" name="observacoes"></textarea>
+                                    </div>
+                                    <button type="button" placement="top-center" triggers="hover focus click"
+                                        class="btn-icon-clipboard">
+                                        <div>
+                                            <i class="ni ni-active-40"></i>
+                                            <span *ngIf="!isUpdated" (click)="savePeso()">Adicionar Peso</span>
+                                            <span *ngIf="isUpdated" (click)="savePeso()">Editar Peso</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
                             <div class="col"></div>
                         </div>
                     </div>
@@ -57,15 +70,14 @@
                                 <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let peso of pesos">
+                        <tbody *ngFor="let peso of pesos;">
                             <tr>
                                 <th scope="row">
                                     <div class="media align-items-center">
-                                        <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                                        </a>
+                                        <i class="ni ni-single-copy-04 text-blue"></i>
                                         <div class="media-body">
-                                            <span class="mb-0 text-sm">{{ peso.data.toDate() | date:'dd/MM/yyyy' }}</span>
+                                            <span class="mb-0 text-sm">{{ peso.data.toDate() | date:'dd/MM/yyyy'
+                                                }}</span>
                                         </div>
                                     </div>
                                 </th>
@@ -78,10 +90,12 @@
                                     </div>
                                 </td>
                                 <td class="text-left">
-                                    <button type="button" class="btn btn-primary" (click)="editPeso(peso.id, peso)">Editar</button>
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="handleActivePet(peso)">Editar</button>
                                 </td>
                                 <td class="text-right">
-                                    <button type="button" class="btn btn-warning" (click)="deletePeso(peso.id)">Excluir</button>
+                                    <button type="button" class="btn btn-warning"
+                                        (click)="deletePeso(peso.id)">Excluir</button>
                                 </td>
                             </tr>
                         </tbody>

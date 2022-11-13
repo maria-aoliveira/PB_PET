@@ -17,17 +17,17 @@
                                 <div class="mb-3">
                                     <label for="data" class="form-label">Data</label>
                                     <input type="email" class="form-control" id="data"
-                                        placeholder="dd/mm/yy">
+                                        placeholder="dd/mm/yy" [(ngModel)]="sintoma.data" name="data">
                                 </div>
                                 <div class="mb-3">
                                     <label for="observacoes" class="form-label">Observações</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="sintoma.observacoes" name="observacoes"></textarea>
                                 </div>
                                 <button type="button" placement="top-center" triggers="hover focus click"
-                                    class="btn-icon-clipboard" (click)="openModal()">
+                                    class="btn-icon-clipboard">
                                     <div>
                                         <i class="ni ni-active-40"></i>
-                                        <span>Adicionar Sintoma</span>
+                                        <span (click)="saveSintoma()" >Adicionar Sintoma</span>
                                     </div>
                                 </button>
                             </div>
@@ -47,25 +47,23 @@
                                 <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngFor="let sintoma of sintomas">
                             <tr>
                                 <th scope="row">
                                     <div class="media align-items-center">
-                                        <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                                        </a>
+                                        <i class="ni ni-single-copy-04 text-blue"></i>
                                         <div class="media-body">
-                                            <span class="mb-0 text-sm">21/10/2022 17:12:00</span>
+                                            <span class="mb-0 text-sm">{{ sintoma.data.toDate() | date:'dd/MM/yyyy' }}</span>
                                         </div>
                                     </div>
                                 </th>
                                 <td>
                                     <div class="media-body">
-                                        <span class="mb-0 text-sm">Tudo certo</span>
+                                        <span class="mb-0 text-sm">{{ sintoma.observacoes }}</span>
                                     </div>
                                 </td>
                                 <td class="text-right">
-                                    <button type="button" class="btn btn-warning">Excluir</button>
+                                    <button type="button" class="btn btn-warning" (click)="deleteSintoma(sintoma.id)">Excluir</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -77,7 +75,7 @@
                             <li class="page-item disabled">
                                 <a class="page-link" href="javascript:void(0)" tabindex="-1">
                                     <i class="fas fa-angle-left"></i>
-                                    <span class="sr-only">Previous</span>
+                                    <span class="sr-only">Anterior</span>
                                 </a>
                             </li>
                             <li class="page-item active">
@@ -91,7 +89,7 @@
                             <li class="page-item">
                                 <a class="page-link" href="javascript:void(0)">
                                     <i class="fas fa-angle-right"></i>
-                                    <span class="sr-only">Next</span>
+                                    <span class="sr-only">Próxima</span>
                                 </a>
                             </li>
                         </ul>

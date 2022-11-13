@@ -25,6 +25,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'sintomas', component: SintomasComponent },
     { path: 'comportamento', component: ComportamentoComponent },
     { path: 'controle-peso', component: ControlePesoComponent },
+    { path: 'edit-peso/:id', component: ControlePesoComponent },
     { path: 'exames', component: ExamesComponent },
     { path: 'medicamentos', component: MedicamentosComponent },
     { path: 'vacinas', component: VacinasComponent },

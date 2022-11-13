@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Pet } from 'src/app/models/pet.model';
-import { Peso } from 'src/app/models/peso.model';
+import { Sintoma } from 'src/app/models/sintoma.model';
 import * as moment from "moment";
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 @Injectable({
     providedIn: 'root',
 })
 
-export class PesoService {
+export class SintomaService {
     storagedPet = localStorage.getItem('currentPet');
     parsedPet = JSON.parse(this.storagedPet);
 
@@ -16,16 +16,14 @@ export class PesoService {
 
     create(pet: any) {
 
-
         var id = this.db.createId();
 
-        const petRef: AngularFirestoreDocument<any> = this.afs.doc(`/pets/${this.parsedPet.id}/pesos/${id}`)
+        const petRef: AngularFirestoreDocument<any> = this.afs.doc(`/pets/${this.parsedPet.id}/sintomas/${id}`)
 
-        const petData: Peso = {
+        const petData: Sintoma = {
             id: id,
             pet_id: this.parsedPet.id,
             data: moment(pet.data, 'DD/MM/YYYY').toDate(),
-            peso: pet.peso,
             observacoes: pet.observacoes
         }
 
@@ -38,17 +36,16 @@ export class PesoService {
     //     return this.db.collection(`/pets/LKl9RCfXub2M2mllSafT/pesos`)
     //   }
 
-    getPesosFromPet(): AngularFirestoreCollection<Peso> {
-        return this.db.collection(`/pets/${this.parsedPet.id}/pesos`, ref => ref.orderBy('data', 'desc').limit(5))
+    getSintomaFromPet(petId: string): AngularFirestoreCollection<Sintoma> {
+        return this.db.collection(`/pets/${petId}/sintomas`, ref => ref.orderBy('data', 'desc').limit(5))
     }
 
-    getPesoById(id: string): AngularFirestoreCollection<Peso> {
-        return this.db.collection(`/pets/${this.parsedPet.id}/pesos`, ref => ref.where('id', '==', id))
+    getSintomaById(petId: string): AngularFirestoreCollection<Sintoma> {
+        return this.db.collection(`/pets/${petId}/sintomas`, ref => ref.where('id', '==', petId))
     }
 
     update(id: string, data: any): Promise<void> {
-        return this.db.collection(`/pets/${this.parsedPet.id}/pesos`).doc(id).update(data);
-
+        return this.db.collection(`/pets/${this.parsedPet.id}/sintomas`).doc(id).update(data);
         // return this.petsRef.doc(id).delete();
     }
 
@@ -58,10 +55,8 @@ export class PesoService {
     // }
 
     delete(id: string): Promise<void> {
-        return this.db.collection(`/pets/${this.parsedPet.id}/pesos`).doc(id).delete();
+        return this.db.collection(`/pets/${this.parsedPet.id}/sintomas`).doc(id).delete();
 
         // return this.petsRef.doc(id).delete();
     }
-
-
 }

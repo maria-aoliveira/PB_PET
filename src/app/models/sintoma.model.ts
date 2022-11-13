@@ -1,5 +1,6 @@
 export class Sintoma {
-    public id_sintoma: string;
+    public id: string;
+    public pet_id: string;
     public data: Date;
     public observacoes: string;
 }
