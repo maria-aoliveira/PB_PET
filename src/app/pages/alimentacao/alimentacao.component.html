@@ -33,7 +33,8 @@
                                     class="btn-icon-clipboard">
                                     <div>
                                         <i class="ni ni-active-40"></i>
-                                        <span (click)="saveAlimentacao()">Adicionar Alimentação</span>
+                                        <span *ngIf="!isUpdated" (click)="saveAlimentacao()">Adicionar Alimentação</span>
+                                        <span *ngIf="isUpdated" (click)="saveAlimentacao()">Editar Alimentação</span>
                                     </div>
                                 </button>
                             </div>
@@ -79,7 +80,7 @@
                                 </td>
                                 <td class="text-left">
                                     <button type="button" class="btn btn-primary"
-                                        (click)="editAlimentacao(alimentacao.id, alimentacao)">Editar</button>
+                                    (click)="handleActiveAlimentacao(alimentacao)">Editar</button>
                                 </td>
                                 <td class="text-right">
                                     <button type="button" class="btn btn-warning"

@@ -27,7 +27,8 @@
                                     class="btn-icon-clipboard">
                                     <div>
                                         <i class="ni ni-active-40"></i>
-                                        <span (click)="saveSintoma()" >Adicionar Sintoma</span>
+                                        <span *ngIf="!isUpdated" (click)="saveSintoma()">Adicionar Sintoma</span>
+                                        <span *ngIf="isUpdated" (click)="saveSintoma()">Editar Sintoma</span>
                                     </div>
                                 </button>
                             </div>
@@ -63,7 +64,12 @@
                                     </div>
                                 </td>
                                 <td class="text-right">
-                                    <button type="button" class="btn btn-warning" (click)="deleteSintoma(sintoma.id)">Excluir</button>
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="handleActiveSintoma(sintoma)">Editar</button>
+                                </td>
+                                <td class="text-left">
+                                    <button type="button" class="btn btn-warning"
+                                        (click)="deleteSintoma(sintoma.id)">Excluir</button>
                                 </td>
                             </tr>
                         </tbody>

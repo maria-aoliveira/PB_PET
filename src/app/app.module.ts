@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
 import { LandingComponent } from 'src/app/pages/landing/landing.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -45,7 +46,7 @@ import { LandingComponent } from 'src/app/pages/landing/landing.component';
     AuthLayoutComponent,
     LandingComponent
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

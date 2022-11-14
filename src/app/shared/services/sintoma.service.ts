@@ -32,31 +32,19 @@ export class SintomaService {
         });
     }
 
-    // getPesosFromPet(): AngularFirestoreCollection<Peso> {       
-    //     return this.db.collection(`/pets/LKl9RCfXub2M2mllSafT/pesos`)
-    //   }
-
-    getSintomaFromPet(petId: string): AngularFirestoreCollection<Sintoma> {
-        return this.db.collection(`/pets/${petId}/sintomas`, ref => ref.orderBy('data', 'desc').limit(5))
+    getSintomaFromPet(): AngularFirestoreCollection<Sintoma> {
+        return this.db.collection(`/pets/${this.parsedPet.id}/sintomas`, ref => ref.orderBy('data', 'desc').limit(5))
     }
 
-    getSintomaById(petId: string): AngularFirestoreCollection<Sintoma> {
-        return this.db.collection(`/pets/${petId}/sintomas`, ref => ref.where('id', '==', petId))
+    getSintomaById(id: string): AngularFirestoreCollection<Sintoma> {
+        return this.db.collection(`/pets/${this.parsedPet.id}/sintomas`, ref => ref.where('id', '==', id))
     }
 
     update(id: string, data: any): Promise<void> {
         return this.db.collection(`/pets/${this.parsedPet.id}/sintomas`).doc(id).update(data);
-        // return this.petsRef.doc(id).delete();
     }
-
-
-    // update(id: string, data: any): Promise<void> {
-    //     return this.petsRef.doc(id).update(data);
-    // }
 
     delete(id: string): Promise<void> {
         return this.db.collection(`/pets/${this.parsedPet.id}/sintomas`).doc(id).delete();
-
-        // return this.petsRef.doc(id).delete();
     }
 }

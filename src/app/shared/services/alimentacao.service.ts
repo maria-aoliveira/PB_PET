@@ -32,12 +32,12 @@ export class AlimentacaoService {
         });
     }
 
-    getAlimentacaoFromPet(petId: string): AngularFirestoreCollection<Alimentacao> {
-        return this.db.collection(`/pets/${petId}/alimentacao`, ref => ref.orderBy('data', 'desc').limit(5))
+    getAlimentacaoFromPet(): AngularFirestoreCollection<Alimentacao> {
+        return this.db.collection(`/pets/${this.parsedPet.id}/alimentacao`, ref => ref.orderBy('data', 'desc').limit(5))
     }
 
-    getAlimentacaoById(petId: string): AngularFirestoreCollection<Alimentacao> {
-        return this.db.collection(`/pets/${petId}/alimentacao`, ref => ref.where('id', '==', petId))
+    getAlimentacaoById(id: string): AngularFirestoreCollection<Alimentacao> {
+        return this.db.collection(`/pets/${this.parsedPet.id}/alimentacao`, ref => ref.where('id', '==', id))
     }
 
     update(id: string, data: any): Promise<void> {

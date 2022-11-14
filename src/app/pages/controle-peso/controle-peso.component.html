@@ -7,7 +7,7 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h3 class="mb-0">Peso</h3>
+                    <h3 class="mb-0">Pesos</h3>
                 </div>
                 <div class="container">
                     <div class="container text-center">
@@ -17,16 +17,6 @@
                                 <div>
                                     <div class="mb-3">
                                         <label for="data" class="form-label">Data</label>
-                                         <!-- <input class="form-control" name="data" 
-                                        placeholder="dd/mm/yy"
-                                        (ngModelChange)="updatedate($event)" 
-                                        [ngModel]="peso.data.toDate() | date:'dd/MM/yyyy'" #data="ngModel" type="date"/> -->
-                                        
-                                        <!-- <input class="form-control" name="data" 
-                                        placeholder="dd/mm/yy"
-                                        (ngModelChange)="peso.data=$event" 
-                                        [ngModel]="peso.data.toDate() | date:'dd/MM/yyyy'" #data="ngModel" type="date"/>  -->
-
                                         <input class="form-control" id="data" placeholder="dd/mm/yy"
                                             [(ngModel)]="peso.data" name="data">
                                     </div>
@@ -89,11 +79,11 @@
                                         <span class="mb-0 text-sm">{{ peso.observacoes }}</span>
                                     </div>
                                 </td>
-                                <td class="text-left">
+                                <td class="text-right">
                                     <button type="button" class="btn btn-primary"
                                         (click)="handleActivePet(peso)">Editar</button>
                                 </td>
-                                <td class="text-right">
+                                <td class="text-left">
                                     <button type="button" class="btn btn-warning"
                                         (click)="deletePeso(peso.id)">Excluir</button>
                                 </td>

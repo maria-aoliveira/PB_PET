@@ -4,8 +4,15 @@ import { PesoService } from 'src/app/shared/services/peso.service';
 import { DatePipe } from "@angular/common";
 import { first, map } from 'rxjs/operators';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-
+import firebase from "firebase/compat/app";
+import Timestamp = firebase.firestore.Timestamp;
+import * as moment from 'moment';
+// import firebase from 'firebase/compat';
+// import Timestamp = firebase.firestore.Timestamp;
+// import { Timestamp } from '@angular/elements';
+// import firebase from 'firebase/app';
+// import Timestamp = firebase.firestore.Timestamp;
+// import { Timestamp } from '@firebase/firestore-types';
 @Component({
   selector: 'app-controle-peso',
   templateUrl: './controle-peso.component.html',
@@ -24,7 +31,7 @@ export class ControlePesoComponent implements OnInit {
   // form: FormGroup;
 
 
-  constructor(private pesoService: PesoService, public router: ActivatedRoute, public route: Router) { }
+  constructor(private pesoService: PesoService, public router: ActivatedRoute, public route: Router, public datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.listPesos()
@@ -51,6 +58,7 @@ export class ControlePesoComponent implements OnInit {
       // console.log(this.peso.id)
       // console.log(this.peso)
       // console.log(this.currentPeso.peso)
+      this.peso.data = moment(this.peso.data, 'DD/MM/YYYY').toDate()
       this.pesoService.update(this.peso.id, this.peso).then(() =>
         this.route.navigate(['controle-peso'])
       )
@@ -83,20 +91,20 @@ export class ControlePesoComponent implements OnInit {
 
   updatedate(event) {
     this.peso.data = new Date(event);
-}
-
-  // getPeso() {
-  //   // console.log(localStorage.getItem("currentPeso"))
-  //   return localStorage.getItem("currentPeso");
-  // }
+  }
 
   async getPeso(id: string) {
     console.log(id)
     return this.pesoService.getPesoById(id).snapshotChanges().pipe(
       map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
+        changes.map(c => {
+          const data = c.payload.doc.data()
+          const id = c.payload.doc.id
+          Object.keys(data).filter(key => data[key] instanceof Timestamp)
+          .forEach(key => {
+            data[key] = this.datePipe.transform(data[key].toDate(), 'dd/MM/yyyy').toString()})
+          return { id, ...data}
+        })
       )
     ).subscribe(data => {
       if (data.length > 0) {
