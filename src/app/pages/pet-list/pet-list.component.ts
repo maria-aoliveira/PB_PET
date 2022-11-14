@@ -60,7 +60,7 @@ export class PetListComponent implements OnInit {
 }
 
   goToEditPet(){  
-    this.router.navigate([`pet-add/${this.currentPet.id}`]);
+    this.router.navigate([`pet-edit/${this.currentPet.id}`]);
   }
 
   setActivePet(pet: Pet): void {

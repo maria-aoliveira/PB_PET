@@ -1,4 +1,4 @@
-<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main" *ngIf="authService.userData as user">
   <div class="container-fluid">
     <!-- Toggler -->
     <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
@@ -6,8 +6,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Brand -->
-    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
-      <img src="./assets/img/brand/logo-no-background.png" class="navbar-brand-img" alt="...">
+    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">    
+      <img src="./assets/img/brand/petcare-transparent-background.png" class="navbar-brand-img" alt="...">
     </a>
     <!-- User -->
     <ul class="nav align-items-center d-md-none">
@@ -26,7 +26,7 @@
         <a class="nav-link" role="button" ngbDropdownToggle>
           <div class="media align-items-center">
             <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg">
+              <img alt="Image placeholder" [src]="(user.photoURL ? user.photoURL : '/assets/dummy-user.png')" referrerpolicy="no-referrer">
             </span>
           </div>
         </a>
@@ -63,12 +63,12 @@
       <!-- Collapse header -->
       <div class="navbar-collapse-header d-md-none">
         <div class="row">
-          <div class="col-6 collapse-brand">
+          <div class="col-7 collapse-brand text-right">
             <a  routerLinkActive="active" [routerLink]="['/dashboard']">
-              <img src="./assets/img/brand/blue.png">
+              <img src="./assets/img/brand/logo-no-background.png">
             </a>
           </div>
-          <div class="col-6 collapse-close">
+          <div class="col-5 collapse-close">
             <button type="button" class="navbar-toggler" (click)="isCollapsed=!isCollapsed">
               <span></span>
               <span></span>
