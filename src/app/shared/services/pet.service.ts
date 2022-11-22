@@ -5,7 +5,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Arquivo } from 'src/app/models/arquivo.model';
 import { finalize, Observable } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { threadId } from 'worker_threads';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
 @Injectable({
     providedIn: 'root',
 })
@@ -17,6 +18,7 @@ export class PetService {
     petsRef: AngularFirestoreCollection<Pet>;
     pictureId;
     downloadUrl;
+    downloadURL: Observable<string>;
 
     constructor(private db: AngularFirestore, public afs: AngularFirestore, public storage: AngularFireStorage, private dbf: AngularFireDatabase) {
         this.petsRef = db.collection(this.dbPath)
@@ -31,46 +33,105 @@ export class PetService {
 
         const petRef: AngularFirestoreDocument<any> = this.afs.doc(`/pets/${id}`)
 
-        const petData: Pet = {
-            id: id,
-            nome: pet.nome,
-            data_nascimento: pet.data_nascimento,
-            raca: pet.raca,
-            genero: pet.genero,
-            tipo_pet: pet.tipo_pet,
-            usuario_uid: parsedUser.uid
-        }
+        // const petData: Pet = {
+        //     id: id,
+        //     nome: pet.nome,
+        //     data_nascimento: pet.data_nascimento,
+        //     raca: pet.raca,
+        //     genero: pet.genero,
+        //     tipo_pet: pet.tipo_pet,
+        //     usuario_uid: parsedUser.uid
+        // }
 
-        return petRef.set(petData, {
-            merge: true,
-        });
+        // return petRef.set(petData, {
+        //     merge: true,
+        // });
     }
 
-    pushFileToStorage(fileUpload: Arquivo): string{
+    pushFileToStorage(fileUpload: Arquivo): Observable<string> {
         var id = this.db.createId();
         this.pictureId = id
         const filePath = `${id}/${fileUpload.file.name}`;
         const storageRef = this.storage.ref(filePath);
         const uploadTask = this.storage.upload(filePath, fileUpload.file);
-    
+        let snapshot = uploadTask.task.snapshot;
+        const ref = this.storage.ref(filePath);
+
         uploadTask.snapshotChanges().pipe(
-          finalize(() => {
-            storageRef.getDownloadURL().subscribe(downloadURL => {
-              fileUpload.url = downloadURL;
-              this.downloadUrl = downloadURL; 
-              fileUpload.nome = fileUpload.file.name;
-              console.log('AAAAAAAAAAl'+ downloadURL)
+            finalize(() => {
+              storageRef.getDownloadURL().subscribe(downloadURL => {
+                fileUpload.url = downloadURL;
+                this.downloadUrl = downloadURL; 
+                this.downloadURL = downloadURL
+                fileUpload.nome = fileUpload.file.name;
+                console.log('url'+ downloadURL)
+                console.log('URL'+ this.downloadURL)
 
-              this.saveFileData(fileUpload);
-              
-            });
-          })
-        ).subscribe();
+                this.saveFileData(fileUpload);
+                
+              });
+            })
+          ).subscribe();
 
-        console.log('AAAAAAAAA222'+ this.downloadUrl)
+        // uploadTask.snapshotChanges().pipe(
+        //   finalize(() => {
+        //     snapshot.ref.getDownloadURL().then(downloadURL => {
+        //       fileUpload.url = downloadURL;
+        //       this.downloadUrl = downloadURL; 
+        //       fileUpload.nome = fileUpload.file.name;
+        //       console.log('AAAAAAAAAAl'+ downloadURL)
+        //       this.saveFileData(fileUpload);
+        //     });
+        //   })
+        // ).subscribe(snap => {
+        //     this.downloadUrl = snap
+        //     console.log(snap)});
+
+        
+
+        // uploadTask.snapshotChanges().pipe(
+        //     finalize(() => {
+        //         this.downloadURL = ref.getDownloadURL();
+        //         this.downloadURL.subscribe(url => { this.downloadUrl = url })
+        //     })
+        // )
+
+        // const storage = getStorage();
+
+        // getDownloadURL(ref(storage, filePath))
+        //     .then((url) => {
+        //         // `url` is the download URL for 'images/stars.jpg'
+
+        //         // This can be downloaded directly:
+        //         const xhr = new XMLHttpRequest();
+        //         xhr.responseType = 'blob';
+        //         xhr.onload = (event) => {
+        //             const blob = xhr.response;
+        //         };
+        //         xhr.open('GET', url);
+        //         xhr.send();
+
+        //         // Or inserted into an <img> element
+        //         const img = document.getElementById('myimg');
+        //         img.setAttribute('src', url);
+
+        //         console.log('seinao' + url)
+        //     })
+        //     .catch((error) => {
+        //         // Handle any errors
+        //     });
+
+        console.log('AAAAA1' + this.downloadUrl)
+
+        console.log('AAAAA3' + this.downloadURL)
+
 
         return this.downloadUrl
-      }
+    }
+
+    delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     private saveFileData(fileUpload: Arquivo): void {
         this.dbf.list('/uploads').push(fileUpload);

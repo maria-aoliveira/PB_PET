@@ -47,10 +47,11 @@ export class PetAddComponent implements OnInit {
       
       this.currentFileUpload = new Arquivo(file);
       this.petService.pushFileToStorage(this.currentFileUpload)
-      this.petService.create(this.pet).then(() => {
-      console.log("Pet criado com sucesso")
-      this.submitted = true;
-    });
+      this.petService.create(this.pet)
+    //   .then(() => {
+    //   console.log("Pet criado com sucesso")
+    //   this.submitted = true;
+    // });
     }else{
       console.log(this.pet)
       this.petService.update(this.pet.id, this.pet).then(()=> this.submitted = true)
