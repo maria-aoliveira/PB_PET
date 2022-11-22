@@ -10,8 +10,11 @@
         <div class="card" style="width: 18rem; height: 19rem;">
           <!-- <div class="card" style="width: 18rem; height: 19rem;">-->
               <div class="card-image" style="height: 13rem;">
-                <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__340.jpg"
-                  class="card-img-top" alt="..." style="max-width:100%; max-height:100%;">
+                <!-- <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__340.jpg"
+                  class="card-img-top" alt="..." style="max-width:100%; max-height:100%;"> -->
+                <img alt="Image placeholder" [src]="(pet.imagem ? pet.imagem : 'https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__340.jpg')" 
+                class="card-img-top" style="max-width:100%; max-height:100%;"
+                referrerpolicy="no-referrer">
               </div>
           <div class="card-body">
             <div class="row row-cols-2">

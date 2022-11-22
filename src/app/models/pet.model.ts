@@ -1,4 +1,5 @@
 import { Alimentacao } from "./alimentacao.model";
+import { Arquivo } from "./arquivo.model";
 import { Comportamento } from "./comportamento.model";
 import { Exame } from "./exame.model";
 import { Medicamento } from "./medicamento.model";
@@ -21,6 +22,7 @@ export class Pet {
     public alimentacao?: Alimentacao[];
     public medicamentos?: Medicamento[];
     public vacinas?: Vacina[];
+    public imagem?: Arquivo;
 
     public idade?(): number {
         console.log(new Date(new Date().getDate() - this.data_nascimento.getDate()).getFullYear())
