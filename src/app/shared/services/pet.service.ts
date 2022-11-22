@@ -31,8 +31,6 @@ export class PetService {
 
         const petRef: AngularFirestoreDocument<any> = this.afs.doc(`/pets/${id}`)
 
-        console.log('merda'+ this.downloadUrl)
-
         const petData: Pet = {
             id: id,
             nome: pet.nome,
@@ -41,7 +39,6 @@ export class PetService {
             genero: pet.genero,
             tipo_pet: pet.tipo_pet,
             usuario_uid: parsedUser.uid
-            // imagem: this.downloadUrl 
         }
 
         return petRef.set(petData, {
@@ -49,10 +46,10 @@ export class PetService {
         });
     }
 
-    pushFileToStorage(fileUpload: Arquivo){
-        // var id = this.db.createId();
-        // this.pictureId = id
-        const filePath = `uploads/${fileUpload.file.name}`;
+    pushFileToStorage(fileUpload: Arquivo): string{
+        var id = this.db.createId();
+        this.pictureId = id
+        const filePath = `${id}/${fileUpload.file.name}`;
         const storageRef = this.storage.ref(filePath);
         const uploadTask = this.storage.upload(filePath, fileUpload.file);
     
@@ -60,15 +57,19 @@ export class PetService {
           finalize(() => {
             storageRef.getDownloadURL().subscribe(downloadURL => {
               fileUpload.url = downloadURL;
-              downloadURL = this.downloadUrl; 
+              this.downloadUrl = downloadURL; 
               fileUpload.nome = fileUpload.file.name;
-              console.log('funciona buceta'+ downloadURL)
+              console.log('AAAAAAAAAAl'+ downloadURL)
+
               this.saveFileData(fileUpload);
               
             });
           })
         ).subscribe();
-        console.log('porraaaa'+ this.downloadUrl)   
+
+        console.log('AAAAAAAAA222'+ this.downloadUrl)
+
+        return this.downloadUrl
       }
 
     private saveFileData(fileUpload: Arquivo): void {
