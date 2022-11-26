@@ -8,10 +8,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { ComponentsModule } from '../../components/components.module';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { IconsComponent } from '../../pages/icons/icons.component';
-import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
-import { TablesComponent } from '../../pages/tables/tables.component';
 import { AlimentacaoComponent } from 'src/app/pages/alimentacao/alimentacao.component';
 import { ComportamentoComponent } from 'src/app/pages/comportamento/comportamento.component';
 import { ControlePesoComponent } from 'src/app/pages/controle-peso/controle-peso.component';
@@ -39,9 +36,6 @@ import { PetListComponent } from 'src/app/pages/pet-list/pet-list.component';
   declarations: [
     DashboardComponent,
     UserProfileComponent,
-    TablesComponent,
-    IconsComponent,
-    MapsComponent,
     AlimentacaoComponent,
     ComportamentoComponent,
     ControlePesoComponent,

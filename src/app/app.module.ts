@@ -20,7 +20,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
-import { LandingComponent } from 'src/app/pages/landing/landing.component';
 import { DatePipe } from '@angular/common';
 
 
@@ -43,8 +42,7 @@ import { DatePipe } from '@angular/common';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent,
-    LandingComponent
+    AuthLayoutComponent
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
