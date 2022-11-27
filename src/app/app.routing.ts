@@ -11,7 +11,7 @@ import { LoginGuard } from './shared/guard/login.guard';
 const routes: Routes =[
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'pet-list',
     pathMatch: 'full',
   }, {
     path: '',
@@ -35,7 +35,7 @@ const routes: Routes =[
     ]
   }, {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: 'pet-list'
   }
 ];
 

@@ -16,11 +16,14 @@ export const ROUTES: RouteInfo[] = [
   { path: 'pet-list', title: 'Meus Pets',  icon:'ni ni-bullet-list-67 text-green', class: '' },
   { path: 'user-profile', title: 'Perfil',  icon:'ni-single-02 text-yellow', class: '' },
   { path: 'alimentacao', title: 'Alimentação',  icon:'ni-single-02 text-yellow', class: '' },
+  { path: 'edit-alimentacao', title: 'Editar Alimentação',  icon:'ni-single-02 text-yellow', class: '' },
   { path: 'comportamento', title: 'Comportamento',  icon:'ni-single-02 text-yellow', class: '' },
   { path: 'controle-peso', title: 'Peso',  icon:'ni-single-02 text-yellow', class: '' },
+  { path: 'edit-peso', title: 'Editar Peso',  icon:'ni-single-02 text-yellow', class: '' },
   { path: 'exames', title: 'Exames',  icon:'ni-single-02 text-yellow', class: '' },
   { path: 'pet-list', title: 'Lista de Pets',  icon:'ni-single-02 text-yellow', class: '' },
   { path: 'sintomas', title: 'Sintomas',  icon:'ni-single-02 text-yellow', class: '' },
+  { path: 'edit-sintoma', title: 'Editar Sintoma',  icon:'ni-single-02 text-yellow', class: '' },
   { path: 'vacinas', title: 'Vacinas',  icon:'ni-single-02 text-yellow', class: '' },
 ];
 

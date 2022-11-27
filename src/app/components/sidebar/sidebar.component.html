@@ -1,31 +1,47 @@
-<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main" *ngIf="authService.userData as user">
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main"
+  *ngIf="authService.userData as user">
   <div class="container-fluid">
     <!-- Toggler -->
     <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
-       aria-controls="sidenav-collapse-main">
+      aria-controls="sidenav-collapse-main">
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Brand -->
-    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">    
+    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
       <img src="./assets/img/brand/petcare-transparent-background.png" class="navbar-brand-img" alt="...">
     </a>
     <!-- User -->
     <ul class="nav align-items-center d-md-none">
       <li class="nav-item" ngbDropdown placement="bottom-right">
-        <a class="nav-link nav-link-icon" role="button" ngbDropdownToggle>
+        <a class="nav-link" role="button" ngbDropdownToggle>
           <i class="ni ni-bell-55"></i>
+          <span style="
+            height: 15px;
+            width: 15px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+            /* color: red; */
+        ">
+            <p style="
+            margin-left: 2px;font-size: 1em!important;
+          ">4</p>
+          </span>
         </a>
         <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
-          <a class="dropdown-item" href="javascript:void(0)">Ação</a>
+          <a class="dropdown-item" href="javascript:void(0)">Lembrete de vacina</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="javascript:void(0)">Algo a ser acrescentado</a>
+          <a class="dropdown-item" href="javascript:void(0)">Lembrete de mensagem</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:void(0)">Lembrete de medicamento</a>
         </div>
       </li>
       <li class="nav-item" ngbDropdown placement="bottom-right">
         <a class="nav-link" role="button" ngbDropdownToggle>
           <div class="media align-items-center">
             <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" [src]="(user.photoURL ? user.photoURL : '/assets/dummy-user.png')" referrerpolicy="no-referrer">
+              <img alt="Image placeholder" [src]="(user.photoURL ? user.photoURL : '/assets/dummy-user.png')"
+                referrerpolicy="no-referrer">
             </span>
           </div>
         </a>
@@ -58,12 +74,12 @@
       </li>
     </ul>
     <!-- Collapse -->
-    <div class="collapse navbar-collapse"  [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
       <!-- Collapse header -->
       <div class="navbar-collapse-header d-md-none">
         <div class="row">
           <div class="col-7 collapse-brand text-right">
-            <a  routerLinkActive="active" [routerLink]="['/dashboard']">
+            <a routerLinkActive="active" [routerLink]="['/dashboard']">
               <img src="./assets/img/brand/logo-no-background.png">
             </a>
           </div>
@@ -78,7 +94,8 @@
       <!-- Form -->
       <form class="mt-4 mb-3 d-md-none">
         <div class="input-group input-group-rounded input-group-merge">
-          <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
+          <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Busca"
+            aria-label="Busca">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <span class="fa fa-search"></span>
@@ -88,12 +105,12 @@
       </form>
       <!-- Navigation -->
       <ul class="navbar-nav">
-          <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-              <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
-                  <i class="ni {{menuItem.icon}}"></i>
-                  {{menuItem.title}}
-              </a>
-          </li>
+        <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+          <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+            <i class="ni {{menuItem.icon}}"></i>
+            {{menuItem.title}}
+          </a>
+        </li>
       </ul>
       <!-- Divider -->
       <hr class="my-3">
@@ -108,7 +125,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="">
-            <i class="ni ni-palette"></i> Cronograma
+            <i class="ni ni-atom"></i> Cronograma
           </a>
         </li>
         <li class="nav-item">
