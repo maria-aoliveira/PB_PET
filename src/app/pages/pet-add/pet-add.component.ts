@@ -34,6 +34,7 @@ export class PetAddComponent implements OnInit {
 
   selectFile(event): void {
     this.selectedFiles = event.target.files;
+    
   }
 
   delay(ms: number) {
@@ -43,17 +44,19 @@ export class PetAddComponent implements OnInit {
   savePet(): void {
     if(!this.isUpdated){
       const file = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;
-      
+      this.selectedFiles = undefined;     
       this.currentFileUpload = new Arquivo(file);
       this.petService.pushFileToStorage(this.currentFileUpload)
       this.petService.create(this.pet)
-    //   .then(() => {
-    //   console.log("Pet criado com sucesso")
-    //   this.submitted = true;
-    // });
+      .then(() => {
+      console.log("Pet criado com sucesso")
+      this.submitted = true;
+    });
     }else{
-      console.log(this.pet)
+      const file = this.selectedFiles.item(0);
+      this.selectedFiles = undefined;     
+      this.currentFileUpload = new Arquivo(file);
+      this.petService.pushFileToStorage(this.currentFileUpload)
       this.petService.update(this.pet.id, this.pet).then(()=> this.submitted = true)
     }    
   }
