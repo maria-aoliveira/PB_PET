@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Arquivo } from 'src/app/models/arquivo.model';
 import { finalize, Observable } from 'rxjs';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 @Injectable({
@@ -15,6 +15,7 @@ export class PetService {
     storagedUser = localStorage.getItem('user');
     parsedUser = JSON.parse(this.storagedUser);
     private dbPath = '/pets';
+    private urlPath = '/uploads'
     petsRef: AngularFirestoreCollection<Pet>;
     pictureId;
     downloadUrl;
@@ -75,6 +76,28 @@ export class PetService {
 
         this.downloadUrl = JSON.parse(localStorage.getItem('imageUrl')!)
     }
+
+    getFiles(numberItems): AngularFireList<Arquivo> {
+        return this.dbf.list(this.pictureId, ref =>
+          ref.limitToLast(numberItems));
+      }
+    
+      deleteFile(fileUpload: Arquivo): void {
+        this.deleteFileDatabase(fileUpload.id)
+          .then(() => {
+            this.deleteFileStorage(fileUpload.nome);
+          })
+          .catch(error => console.log(error));
+      }
+    
+      private deleteFileDatabase(key: string): Promise<void> {
+        return this.dbf.list(this.pictureId).remove(key);
+      }
+    
+      private deleteFileStorage(name: string): void {
+        const storageRef = this.storage.ref(this.pictureId);
+        storageRef.child(name).delete();
+      }
 
     private saveFileData(fileUpload: Arquivo): void {
         this.dbf.list('/uploads').push(fileUpload);
