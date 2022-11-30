@@ -36,7 +36,7 @@ export class PetService {
         const petData: Pet = {
             id: id,
             nome: pet.nome,
-            data_nascimento: pet.data_nascimento ? pet.data_nascimento : '',
+            data_nascimento: pet.data_nascimento,
             raca: pet.raca ? pet.raca: '',
             genero: pet.genero ? pet.genero : '',
             tipo_pet: pet.tipo_pet ? pet.tipo_pet : '',

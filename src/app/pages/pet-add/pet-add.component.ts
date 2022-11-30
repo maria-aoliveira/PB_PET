@@ -49,14 +49,21 @@ export class PetAddComponent implements OnInit {
     }
 
     if (!this.isUpdated) {
-      const file = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;
-      this.currentFileUpload = new Arquivo(file);
-      this.petService.pushFileToStorage(this.currentFileUpload)
+      const file = this.selectedFiles?.item(0);
 
-      await wait5s()
+      if (file) {
+        this.selectedFiles = undefined;
+        this.currentFileUpload = new Arquivo(file);
+        this.petService.pushFileToStorage(this.currentFileUpload)
 
-      this.pet.imagem = JSON.parse(localStorage.getItem('imageUrl'))
+        await wait5s()
+
+        this.pet.imagem = JSON.parse(localStorage.getItem('imageUrl'))
+      }else{
+        this.pet.imagem = ''
+      }
+
+
       this.petService.create(this.pet, this.pet.imagem)
         .then(() => {
           console.log("Pet criado com sucesso")
@@ -64,10 +71,13 @@ export class PetAddComponent implements OnInit {
         });
     } else {
       // console.log(this.pet)
-      const file = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;
-      this.currentFileUpload = new Arquivo(file);
-      this.petService.pushFileToStorage(this.currentFileUpload)
+      const file = this.selectedFiles?.item(0);
+
+      if (file) {
+        this.selectedFiles = undefined;
+        this.currentFileUpload = new Arquivo(file);
+        this.petService.pushFileToStorage(this.currentFileUpload)
+      }
 
       await wait5s()
 

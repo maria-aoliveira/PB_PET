@@ -54,7 +54,7 @@ export class PetListComponent implements OnInit {
   deletePet(): void{
     this.petService.delete(this.currentPet.id)
       .then(() => {
-        this.message = 'The tutorial was deleted successfully!';
+        this.message = 'Pet was deleted successfully!';
       })
       .catch(err => console.log(err));    
 }
