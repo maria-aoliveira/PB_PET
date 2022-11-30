@@ -19,6 +19,7 @@ export class PetAddComponent implements OnInit {
   isUpdated = false;
   selectedFiles: FileList;
   currentFileUpload: Arquivo;
+  currentImage;
 
   constructor(private petService: PetService, public router: ActivatedRoute) { }
 
@@ -27,13 +28,13 @@ export class PetAddComponent implements OnInit {
       if(params && params.id){
         this.getPet(params.id);
         this.isUpdated = true;
-      } 
-      
-    });    
+      }
+
+    });
   }
 
   selectFile(event): void {
-    this.selectedFiles = event.target.files;   
+    this.selectedFiles = event.target.files;
   }
 
   delay(ms: number) {
@@ -43,23 +44,28 @@ export class PetAddComponent implements OnInit {
   savePet(): void {
     if(!this.isUpdated){
       const file = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;     
+      this.selectedFiles = undefined;
       this.currentFileUpload = new Arquivo(file);
       this.petService.pushFileToStorage(this.currentFileUpload)
       this.petService.create(this.pet)
       .then(() => {
-      console.log("Pet criado com sucesso")
-      this.submitted = true;
+        console.log("Pet criado com sucesso")
+        this.submitted = true;
     });
     }else{
       // console.log(this.pet)
-      const file = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;     
-      this.currentFileUpload = new Arquivo(file);
-      this.petService.pushFileToStorage(this.currentFileUpload)
-      this.pet.imagem= JSON.parse(localStorage.getItem('imageUrl')!)
-      this.petService.update(this.pet.id, this.pet).then(()=> this.submitted = true)
-    }    
+      const file = this.selectedFiles?.item(0);
+      if(file != undefined){
+        this.currentFileUpload = new Arquivo(file);
+        this.petService.pushFileToStorage(this.currentFileUpload).then(()=>{
+          this.pet.imagem = JSON.parse(localStorage.getItem('imageUrl'))
+          this.petService.update(this.pet.id, this.pet).then(()=> this.submitted = true)
+          this.selectedFiles = undefined;
+        })
+      }else{
+        this.petService.update(this.pet.id, this.pet).then(()=> this.submitted = true)
+      }
+    }
   }
 
   newPet(): void{
@@ -71,15 +77,15 @@ export class PetAddComponent implements OnInit {
     return await this.petService.getPetById(id).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })                         
+          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
         )
       )
     ).subscribe(data => {
       // console.log(data)
       if(data.length > 0){
         this.pet = data.pop();
-        console.log(this.pet)
+        console.log(JSON.stringify(this.pet))
       }
-    });    
+    });
   }
 }

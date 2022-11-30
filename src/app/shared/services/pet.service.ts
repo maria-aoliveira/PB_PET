@@ -27,8 +27,8 @@ export class PetService {
     create(pet: any) {
         var storagedUser = localStorage.getItem('user');
         var parsedUser = JSON.parse(storagedUser);
-        // pet.usuario_uid = parsedUser.uid; 
-        var petUrl = this.downloadUrl        
+        // pet.usuario_uid = parsedUser.uid;
+        var petUrl = this.downloadUrl
 
         var id = this.db.createId();
 
@@ -50,7 +50,7 @@ export class PetService {
         });
     }
 
-    pushFileToStorage(fileUpload: Arquivo) {
+    async pushFileToStorage(fileUpload: Arquivo) {
         var id = this.db.createId();
         this.pictureId = id
         const filePath = `${id}/${fileUpload.file.name}`;
@@ -59,29 +59,33 @@ export class PetService {
         let snapshot = uploadTask.task.snapshot;
         const ref = this.storage.ref(filePath);
 
-        uploadTask.snapshotChanges().pipe(
-            finalize(() => {
-              storageRef.getDownloadURL().subscribe(downloadURL => {
+        await uploadTask.snapshotChanges().pipe(
+            finalize(async () => {
+              await storageRef.getDownloadURL().subscribe(async downloadURL => {
                 fileUpload.url = downloadURL;
-                this.downloadUrl = downloadURL; 
+                this.downloadUrl = downloadURL;
                 fileUpload.nome = fileUpload.file.name;
-                console.log('url'+ downloadURL)
+                console.log('url              '+ downloadURL)
                 localStorage.setItem('imageUrl', JSON.stringify(downloadURL));
-                this.saveFileData(fileUpload);               
+                let pet = JSON.parse(localStorage.getItem('currentPet'));
+                pet.imagem = downloadURL
+                await localStorage.setItem('currentPet', JSON.stringify(pet));
+                this.saveFileData(fileUpload);
+                this.downloadUrl = JSON.parse(localStorage.getItem('imageUrl')!)
+                let petAux = JSON.parse(localStorage.getItem(`currentPet`))
+                this.update(petAux.id, petAux)
               });
             })
           ).subscribe();
 
-        console.log('teste'+ JSON.parse(localStorage.getItem('imageUrl')!))
-
-        this.downloadUrl = JSON.parse(localStorage.getItem('imageUrl')!)
+        console.log('teste                  '+ JSON.parse(localStorage.getItem('imageUrl')!))
     }
 
     getFiles(numberItems): AngularFireList<Arquivo> {
         return this.dbf.list(this.pictureId, ref =>
           ref.limitToLast(numberItems));
       }
-    
+
       deleteFile(fileUpload: Arquivo): void {
         this.deleteFileDatabase(fileUpload.id)
           .then(() => {
@@ -89,11 +93,11 @@ export class PetService {
           })
           .catch(error => console.log(error));
       }
-    
+
       private deleteFileDatabase(key: string): Promise<void> {
         return this.dbf.list(this.pictureId).remove(key);
       }
-    
+
       private deleteFileStorage(name: string): void {
         const storageRef = this.storage.ref(this.pictureId);
         storageRef.child(name).delete();

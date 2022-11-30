@@ -56,10 +56,10 @@ export class PetListComponent implements OnInit {
       .then(() => {
         this.message = 'The tutorial was deleted successfully!';
       })
-      .catch(err => console.log(err));    
+      .catch(err => console.log(err));
 }
 
-  goToEditPet(){  
+  goToEditPet(){
     this.router.navigate([`pet-edit/${this.currentPet.id}`]);
   }
 
