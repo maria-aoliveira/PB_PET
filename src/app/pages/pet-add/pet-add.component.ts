@@ -19,6 +19,7 @@ export class PetAddComponent implements OnInit {
   isUpdated = false;
   selectedFiles: FileList;
   currentFileUpload: Arquivo;
+  currentImage;
 
   constructor(private petService: PetService, public router: ActivatedRoute, public rout: Router) { }
 
@@ -124,7 +125,7 @@ export class PetAddComponent implements OnInit {
       // console.log(data)
       if (data.length > 0) {
         this.pet = data.pop();
-        console.log(this.pet)
+        console.log(JSON.stringify(this.pet))
       }
     });
   }
