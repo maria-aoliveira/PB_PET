@@ -3,5 +3,5 @@ export class Peso {
     public pet_id: string;
     public data: Date;
     public peso: number;
-    public observacoes: string;
+    public observacoes?: string;
 }

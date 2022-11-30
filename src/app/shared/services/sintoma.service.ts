@@ -24,7 +24,7 @@ export class SintomaService {
             id: id,
             pet_id: this.parsedPet.id,
             data: moment(pet.data, 'DD/MM/YYYY').toDate(),
-            observacoes: pet.observacoes
+            observacoes: pet.observacoes ? pet.observacoes : ''
         }
 
         return petRef.set(petData, {

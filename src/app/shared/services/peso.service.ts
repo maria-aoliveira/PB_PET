@@ -26,7 +26,7 @@ export class PesoService {
             pet_id: this.parsedPet.id,
             data: moment(pet.data, 'DD/MM/YYYY').toDate(),
             peso: pet.peso,
-            observacoes: pet.observacoes
+            observacoes: pet.observacoes ? pet.observacoes : ''
         }
 
         return petRef.set(petData, {

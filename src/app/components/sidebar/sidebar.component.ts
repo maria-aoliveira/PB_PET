@@ -8,10 +8,14 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
+
+const storagedPet = localStorage.getItem('currentPet');
+const parsedPet = JSON.parse(storagedPet);
 export const ROUTES: RouteInfo[] = [
     { path: 'pet-list', title: 'Meus Pets',  icon:'ni ni-bullet-list-67 text-green', class: '' },
-    { path: 'user-profile', title: 'Perfil',  icon:'ni-single-02 text-yellow', class: '' }
-   
+    { path: 'user-profile', title: 'Perfil',  icon:'ni-single-02 text-yellow', class: '' },
+    { path: `dashboard/${parsedPet.id}`, title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' }
+    
 ];
 
 // export const ROUTES: RouteInfo[] = [

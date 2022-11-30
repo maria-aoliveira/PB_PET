@@ -8,20 +8,21 @@
         <div class="card-group">
           <div class="row" *ngFor="let pet of pets; let i = index" [class.active]="i == currentIndex"
             (click)="setActivePet(pet, i)">
-            <div class="card" style="width: 18rem; height: 19rem; margin-right: 40px;">
-              <div class="card-image" style="height: 13rem">
+            <div class="card" style="width: 18rem; height: 17rem; margin-right: 40px; margin-bottom: 10px;">
+              <div class="card-image" style="height: 15rem">
                 <img alt="Image placeholder" [src]="
                     pet.imagem
                       ? pet.imagem
-                      : 'https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__340.jpg'
-                  " class="card-img-top" style="max-width: 100%; max-height: 100%" referrerpolicy="no-referrer" />
+                      : '../assets/img/theme/pets.jpg'
+                  " class="card-img-top" style="max-width: 100%; height: 13rem; max-height: 100%"
+                  referrerpolicy="no-referrer" />
               </div>
               <div class="card-body">
-                <div class="row row-cols-2">
-                  <div class="col">
+                <div class="row">
+                  <div class="col-10">
                     <p class="card-text">{{ pet.nome }}</p>
                   </div>
-                  <div class="col">
+                  <div class="col-1">
                     <div ngbDropdown placement="right">
                       <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
                         <i class="fas fa-ellipsis-v"></i>
@@ -38,14 +39,16 @@
             </div>
           </div>
           <div class="row">
-            <div class="card" style="width: 18rem; height: 19rem; margin-right: 40px;">
-              <div class="card-image" style="height: 13rem" (click)="goToAddPet()" triggers="hover focus click">
+            <div class="card" style="width: 18rem; height: 17rem; margin-right: 40px; margin-bottom: 10px;">
+              <div class="card-image" style="height: 12rem" (click)="goToAddPet()" triggers="hover focus click">
                 <img src="../assets/img/icons/plus-solid.svg" class="card-img-top" alt="..."
-                  style="margin-top: 50px; max-width: 50%; max-height: 50%" />
+                  style="margin-top: 50px; max-width: 50%; height: 13rem; max-height: 50%" />
               </div>
               <div class="card-body">
                 <div class="row row-cols-2">
-                  <p class="card-text">Novo Pet</p>
+                  <div class="col-10">
+                    <p class="card-text">Novo Pet</p>
+                  </div>
                 </div>
               </div>
             </div>

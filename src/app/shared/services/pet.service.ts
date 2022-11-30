@@ -24,11 +24,10 @@ export class PetService {
         this.petsRef = db.collection(this.dbPath)
     }
 
-    create(pet: any) {
+    create(pet: any, petUrl: string) {
         var storagedUser = localStorage.getItem('user');
         var parsedUser = JSON.parse(storagedUser);
         // pet.usuario_uid = parsedUser.uid; 
-        var petUrl = this.downloadUrl        
 
         var id = this.db.createId();
 
@@ -37,12 +36,12 @@ export class PetService {
         const petData: Pet = {
             id: id,
             nome: pet.nome,
-            data_nascimento: pet.data_nascimento,
-            raca: pet.raca,
-            genero: pet.genero,
-            tipo_pet: pet.tipo_pet,
+            data_nascimento: pet.data_nascimento ? pet.data_nascimento : '',
+            raca: pet.raca ? pet.raca: '',
+            genero: pet.genero ? pet.genero : '',
+            tipo_pet: pet.tipo_pet ? pet.tipo_pet : '',
             usuario_uid: parsedUser.uid,
-            imagem: petUrl
+            imagem: petUrl ? petUrl : ''
         }
 
         return petRef.set(petData, {
@@ -65,16 +64,12 @@ export class PetService {
                 fileUpload.url = downloadURL;
                 this.downloadUrl = downloadURL; 
                 fileUpload.nome = fileUpload.file.name;
-                console.log('url'+ downloadURL)
+                console.log('push url'+ downloadURL)
                 localStorage.setItem('imageUrl', JSON.stringify(downloadURL));
                 this.saveFileData(fileUpload);               
               });
             })
           ).subscribe();
-
-        console.log('teste'+ JSON.parse(localStorage.getItem('imageUrl')!))
-
-        this.downloadUrl = JSON.parse(localStorage.getItem('imageUrl')!)
     }
 
     getFiles(numberItems): AngularFireList<Arquivo> {
